@@ -9,7 +9,7 @@ const NavBar = () => {
                 <Link to='/about' className="m-auto py-2 px-2">About</Link>
             </div>      
             <div className="flex justify-around">
-                <div className="m-auto py-1 px-2">Profile</div>
+                <Link to='/products/add' className="m-auto py-1 px-2">Add Product</Link>
                 <Link to='/cart' className="m-auto py-1 px-2">Go to cart</Link>
             </div>  
         </div>

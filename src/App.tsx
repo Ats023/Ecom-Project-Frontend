@@ -11,6 +11,7 @@ import Layout from './components/Layout'
 import Product from './components/Product'
 import CartContext, { CartProvider } from './context/CartContext'
 import Cart from './components/Cart'
+import AddProduct from './components/AddProduct'
 
 function App() {
   return (
@@ -19,10 +20,11 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Layout/>}>
-        <Route index element={<HomePage />} />
-        <Route path='products/:id' element={<Product/>}></Route>
-        <Route path='cart' element={<Cart/>}></Route>
-        <Route path='about' element={<About/>}></Route>
+          <Route index element={<HomePage />} />
+          <Route path='products/:id' element={<Product/>}></Route>
+          <Route path='cart' element={<Cart/>}></Route>
+          <Route path='about' element={<About/>}></Route>
+          <Route path='products/add' element={<AddProduct/>}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
