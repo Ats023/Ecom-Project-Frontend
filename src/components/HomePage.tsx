@@ -31,7 +31,8 @@ const HomePage=() => {
                         <span className='italic'>{product.brand}</span>
                         <span className='font-semibold'>Rs. {product.price}</span></div>
                     <button onClick={(e)=>{
-                        addToCart(product);}} className={`text-md text-gray-600 rounded-md px-3 py-2 my-2 ${product.available?'bg-green-200':'bg-slate-200'}`}>{product.available?'Add to Cart':'Out of Stock'}</button>
+                        if(product.available)
+                        addToCart(product);}} className={`text-md text-gray-600 rounded-md px-3 py-2 my-2 hover:shadow-md ${product.available?'bg-green-200':'bg-slate-200'}`}>{product.available?'Add to Cart':'Out of Stock'}</button>
                 </div>
         ))}
     </div>

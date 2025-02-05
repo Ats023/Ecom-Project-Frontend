@@ -1,7 +1,8 @@
-import React, { ReactEventHandler, useState } from 'react'
+import axios from 'axios';
+import React, { ReactEventHandler, useEffect, useState } from 'react'
 
 interface Product {
-    id: number;
+    // id: number;
     name: string;
     price: number;
     quantity?: number;
@@ -9,13 +10,12 @@ interface Product {
     desc: string;
     brand: string;
     category: string;
-    // releaseDate: Date;
-    // available: boolean;
+    releaseDate: string;
+    available: boolean;
   }
 
 function AddProduct() {
     const [product, setProduct] = useState<Product>({
-        id: 0,
         name: '',
         price: 0,
         quantity: 0,
@@ -23,27 +23,38 @@ function AddProduct() {
         desc: '',
         brand: '',
         category: '',
-
+        releaseDate: '',
+        available: false,
     })
-    const addToProducts = (formData: FormData) => {
-        console.log('add product called...')
-        const name = formData.get('name')
-        const brand = formData.get('brand')
-        const quantity = formData.get('stockquantity')
-        const price = formData.get('price')
-        const category = formData.get('category')
-        const description = formData.get('desc')
-        //console.log('FORMDATA: '+name+' '+brand+' '+quantity+' '+price+' '+category+' '+description)
+    const addToProducts = async (product: Product) => {
+        try {
+            console.log(product)
+            const response = await axios.post(`http://localhost:8080/api/products`, product)
+        }
+        catch(error) {
+            console.log(error)
+        }
     }
 
-    const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
-        setProduct({...product,[event.target.name] : event.target.value});
+    const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+        setProduct({...product,[e.target.name] : e.target.value});
     }
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(product)
+        const today = new Date()
+        const newReleaseDate = today.getFullYear() + '-' + today.getMonth() + '-' + today.getDate()
+        const isAvailable = product.stockquantity>=0?true:false 
+        console.log(newReleaseDate, isAvailable)
+        setProduct({...product, releaseDate: newReleaseDate, available: isAvailable})
     }
+
+    useEffect(() => {
+        if (product.releaseDate!=='') {
+            addToProducts(product); 
+        }
+    }, [product]); 
+
   return (
     <>
     <div>AddProduct</div>
